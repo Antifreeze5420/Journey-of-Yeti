@@ -92,30 +92,41 @@ setSolids([player,rock])
 setPushables({
   [ player ]: [rock]
 })
-
+function get(x,y){
+  const tile = getTile(x,y)
+  let r = false
+  for (let s of tile){
+    let g = (s.type ===ice)
+    r = (r || g)
+  }
+  return r
 
   
 }
 onInput("s", () => {
     getFirst(player).y += 1
   
-
+    while(get(getFirst(player).x, getFirst(player).y) && get(getFirst(player).x, getFirst(player).y+1)){
+      getFirst(player).y += 1
   }  
 })
 onInput("w", () => {
   getFirst(player).y -= 1
   
-
+ while(get(getFirst(player).x, getFirst(player).y) && get(getFirst(player).x, getFirst(player).y-1)){
+    getFirst(player).y -= 1
   }  
 })
 onInput("a", () => {
   getFirst(player).x -= 1
-
+  while(get(getFirst(player).x, getFirst(player).y) && get(getFirst(player).x-1, getFirst(player).y)){
+    getFirst(player).x -= 1
   }  
 })
 onInput("d", () => {
   getFirst(player).x += 1
-
+  while(get(getFirst(player).x, getFirst(player).y) && get(getFirst(player).x+1, getFirst(player).y)){
+    getFirst(player).x += 1
   }  
 })
 onInput("j", () => {
